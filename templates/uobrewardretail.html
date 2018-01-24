@@ -1,0 +1,656 @@
+{% extends 'layout.html' %}
+{% block body %}
+<style>
+    .container{
+        width:90%;
+        margin-top:-50px;
+    }
+    li.nav-item {
+        margin-top: 68px;
+    }
+    ul.nav.nav-tabs{
+        font-size:18px;
+        border-bottom: 2px solid black;
+        margin-top: -20px;
+
+    }
+    .nav-tabs>li>a{
+        margin-right:10px;
+        border:1px solid black;
+        border-bottom:transparent;
+        color: black
+    }
+    a.nav-link.active{
+        background-color:whitesmoke;
+    }
+    .pointsystem{
+        border-style: solid;
+        border-bottom-color: transparent;
+        font-size:15px;
+        font-weight:bold;
+        padding:3px 10px 3px 20px;
+        text-align:center;
+        margin-top:60px;
+        display: inline-block;
+    }
+    li.uobbank {
+        margin-top: 13px;
+    }
+    h3{
+        font-weight:bold;
+        font-size:27px;
+        margin: 65px 25px 0px 25px;
+    }
+    span.glyphicon.glyphicon-shopping-cart{
+        color:black;
+        font-size:25px;
+        margin: -20px 25px 0px 30px;
+
+    }
+    .toptable{
+        margin:-10px 0px 0px 50px;
+    }
+    .search{
+        position: relative;
+        margin:10px 30px 0px 115px;
+    }
+    input[type=search]::-webkit-search-cancel-button {
+        -webkit-appearance: searchfield-cancel-button;
+    }
+    #search{
+        width: 400px;
+        font-size: 16px;
+        padding: 10px 20px 12px 40px;
+        border: 1px solid black;
+        height: 40px;
+    }
+    .sort {
+        font-size: 18px;
+        margin: 15px 120px 0px 120px;
+    }
+
+    i.glyphicon.glyphicon-search {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+    th.text-center {
+        border: 1px solid black;
+        font-size:18px;
+    }
+
+    .info{
+        font-size:17px;
+    }
+    #name{
+    font-weight:bold;
+    }
+
+    tr.border_bottom td {
+      border-bottom:1pt solid black;
+    }
+    .addtocart{
+    background-color: white;
+    color: black;
+    border:1px solid black;
+    padding: 5px 3px;
+    margin-top:5px;
+    text-align: center;
+    width:130px;
+    font-size: 15px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+    .addtocart:hover {
+        background-color: #e7e7e7;
+    }
+
+    .pagination {
+        display: inline-block;
+    }
+    .pagination a.hover{
+        background-color:grey;
+    }
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+    }
+    .pagination a.active{
+        background-color: lightgrey;
+    }
+    .pagination a:hover{
+        background-color: lightgrey;
+    }
+
+    #myBtn {
+    display: none;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    position: fixed;
+    width: 45px;
+	height: 45px;
+	border-radius: 50px;
+    bottom: 20px;
+    right: 20px;
+    border: none;
+    outline: none;
+
+    }
+
+</style>
+
+<script>
+/*function addtocart10(){
+    var quantity = document.getElementById("NikeVoucher").value;
+    var points = 1625;
+    var selected_points=parseInt(points) * parseInt(quantity);
+    var currentpt=parseInt(document.getElementById("currentpt").innerHTML);
+    var redeempt= parseInt(document.getElementById("redeempt").innerHTML);
+    var updatedcurrentpt = currentpt - selected_points;
+    var updatedredeempt = redeempt + selected_points;
+    document.getElementById("currentpt").innerHTML = updatedcurrentpt;
+    document.getElementById("redeempt").innerHTML = updatedredeempt;
+
+    alert("You have successfully redeemed.")
+
+}
+*/
+function myFunction() {
+  // Declare variables
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("retail");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+  document.getElementById("pagination").remove();
+}
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+
+<script>
+var tdydate;
+function date() {
+
+var date = "";
+
+var newDate = new Date();
+
+// Get the month, day, and year.
+date += newDate.getDate() + "/";
+date += (newDate.getMonth() + 1) + "/";
+date += newDate.getFullYear();
+
+return date;
+
+
+}
+var items=[];
+var asiamall;
+
+function addtocart1(){
+    date= date();
+    var name = document.getElementById("name").innerText;
+    var type= document.getElementById("type").innerText;
+    var item = "Asia Mall $20 Gift Voucher";
+    var points = 1110;
+    var quantity = document.getElementById("Asia Mall $20 Gift Voucher").value;
+    var totalpoints= points * quantity;
+    asiamall= {"date": date,"rewardname":name,"type":type, "item": item, "points":points,"quantity":quantity,"totalpoints":totalpoints};
+    items.push(asiamall);
+    console.log(items)
+}
+</script>
+<div class="container" >
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link"  href="/uobrewardtrending">Trending</a></li>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" href="/uobrewardall">All</a></li>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" href="/uobrewardretail">Retail</a></li>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" href="/uobrewarddining">Dining</a></li>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link" href="/uobrewardleisure">Leisure</a></li>
+      </li>
+      <li role="presentation" class="uobbank">
+       <h3>UOB Catalogue</h3>
+      </li>
+      <li>
+          <div  class="pointsystem" >
+                <div style="display:inline-block">
+                    <p style="margin-bottom:0px;font-size:17px;">
+                        Current Point : UNI$<span id="currentpt">5000</span>
+                    </p>
+                    <p style="padding-right:47px; margin-bottom:0px;  font-size:17px; ">
+                        Redeemed Point : <span id="redeempt">0</span>
+                    </p>
+                </div>
+                <div style="display:inline-block">
+                    <p style="text-align:center; margin:0px">
+                        <a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </p>
+                </div>
+          </div>
+      </li>
+
+    </ul>
+
+
+    <br>
+
+    <table class="toptable">
+        <tr>
+            <td style="font-size:17px;">
+                <div class="search">
+
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input type="search" id="search" onkeyup="myFunction()"  placeholder="Search Reward names">
+                </div>
+            </td>
+
+             <td style="text-align:center">
+                <div class="sort">
+                    <label for="sort">Sort:</label>
+                                            <select id="Sort" onchange="location = this.value;">
+                                                <option name="Reward Name" value="/uobrewardretail" selected="selected">Reward Name</option>
+                                                <option name="Points" value="/uobrewardretailpt" >Points</option>
+                                            </select>
+
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+
+</div>
+    <br>
+    <br>
+    <table id="retail" class="retail" style="border:1px solid black; width:90%;text-align:center; margin:auto;">
+
+        <tr>
+            <col width="20%">
+            <col width="20%">
+            <col width="22.5%">
+            <col width="15%">
+
+
+            <th class="text-center" colspan="2">Item</th>
+            <th class="text-center">Type</th>
+            <th class="text-center">Points (UNI$)</th>
+            <th class="text-center">Selection</th>
+        </tr>
+<!--Asia Mall Gift Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img id="img" src="static/images/asiamall.png" width="180" height="90"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Asia Mall Gift Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$20 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1410 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="AsiaMallGiftVoucher">
+                                <option name="$20 Voucher" value="0" selected="selected">0</option>
+                                <option name="$20 Voucher" value="1">1</option>
+                                <option name="$20 Voucher" value="2">2</option>
+                                <option name="$20 Voucher" value="3">3</option>
+                                <option name="$20 Voucher" value="4">4</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart1()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+<!--Best Denki Voucher-->
+        <tr class="border_bottom" style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/bestdenki.jpg" width="160" height="50"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Best Denki Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$50 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">2640 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="BestDenkiVoucher">
+                                <option name="$50 Voucher" value="0" selected="selected">0</option>
+                                <option name="$50 Voucher" value="1">1</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart2()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+
+<!--Capita Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/capitaland.jpg" width="180" height="120"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Capita Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$20 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1410 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="CapitaVoucher">
+                                <option name="$20 Voucher" value="0" selected="selected">0</option>
+                                <option name="$20 Voucher" value="1">1</option>
+                                <option name="$20 Voucher" value="2">2</option>
+                                <option name="$20 Voucher" value="3">3</option>
+                                <option name="$20 Voucher" value="4">4</option>
+                            </select>
+                </p>
+            <button class="addtocart" onclick="addtocart3()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+<!--Charles & Keith Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/charlesandkeith.png" width="180" height="85"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Charles & Keith Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$20 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1300 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="CharlesKeithVoucher">
+                                <option name="$20 Voucher" value="0" selected="selected">0</option>
+                                <option name="$20 Voucher" value="1">1</option>
+                                <option name="$20 Voucher" value="2">2</option>
+                                <option name="$20 Voucher" value="3">3</option>
+                                <option name="$20 Voucher" value="4">4</option>
+                                <option name="$20 Voucher" value="5">5</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart4()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+<!--Club 21 Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/club2.jpg" width="90" height="70"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Club 21 Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$50 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">2100 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="ClubVoucher">
+                                <option name="$50 Voucher" value="0" selected="selected">0</option>
+                                <option name="$50 Voucher" value="1">1</option>
+                                <option name="$50 Voucher" value="2">2</option>
+                                <option name="$50 Voucher" value="3">3</option>
+                                <option name="$50 Voucher" value="4">4</option>
+                                <option name="$50 Voucher" value="5">5</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart5()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+<!--Courts Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/court.jpg" width="160" height="65"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Courts Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$20 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1025 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="CourtsVoucher">
+                                <option name="$20 Voucher" value="0" selected="selected">0</option>
+                                <option name="$20 Voucher" value="1">1</option>
+                                <option name="$20 Voucher" value="2">2</option>
+                                <option name="$20 Voucher" value="3">3</option>
+                                <option name="$20 Voucher" value="4">4</option>
+                                <option name="$20 Voucher" value="5">5</option>
+                                <option name="$20 Voucher" value="6">6</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart6()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+<!--Gain City Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/gaincity.png" width="180" height="70"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Gain City Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$50 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">2075 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="GainCityVoucher">
+                                <option name="$50 Voucher" value="0" selected="selected">0</option>
+                                <option name="$50 Voucher" value="1">1</option>
+                                <option name="$50 Voucher" value="2">2</option>
+                                <option name="$50 Voucher" value="3">3</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart7()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+
+<!--Isetan Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/isetan.jpg" width="140" height="80"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Isetan Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$20 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1000 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="IsetanVoucher">
+                                <option name="$20 Voucher" value="0" selected="selected">0</option>
+                                <option name="$20 Voucher" value="1">1</option>
+                                <option name="$20 Voucher" value="2">2</option>
+                                <option name="$20 Voucher" value="3">3</option>
+                                <option name="$20 Voucher" value="4">4</option>
+                                <option name="$20 Voucher" value="5">5</option>
+                                <option name="$20 Voucher" value="6">6</option>
+                                <option name="$20 Voucher" value="7">7</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart9()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+<!--Nike Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/nike.png" width="120" height="90"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Nike $50 Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$50 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1625 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="NikeVoucher">
+                                <option name="$50 Voucher" value="0" selected="selected">0</option>
+                                <option name="$50 Voucher" value="1">1</option>
+                                <option name="$50 Voucher" value="2">2</option>
+                                <option name="$50 Voucher" value="3">3</option>
+                            </select>
+                </p>
+                <button class="addtocart"><a href="/updateuobrewardretail" style="color:black;text-decoration:none;"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</a></button>
+            </td>
+        </tr>
+<!--Popular Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/popular.jpg" width="160" height="80"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Popular Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$20 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1000 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="PopularGiftVoucher">
+                                <option name="$20 Voucher" value="0" selected="selected">0</option>
+                                <option name="$20 Voucher" value="1">1</option>
+                                <option name="$20 Voucher" value="2">2</option>
+                                <option name="$20 Voucher" value="3">3</option>
+                                <option name="$20 Voucher" value="4">4</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart11()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+<!--Pull & Bear Voucher-->
+        <tr class="border_bottom" style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/pullandbear.jpg" width="180" height="100"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Pull & Bear Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$30 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1325 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="PullBearVoucher">
+                                <option name="$30 Voucher" value="0" selected="selected">0</option>
+                                <option name="$30 Voucher" value="1">1</option>
+                                <option name="$30 Voucher" value="2">2</option>
+                                <option name="$30 Voucher" value="3">3</option>
+                                <option name="$30 Voucher" value="4">4</option>
+                                <option name="$30 Voucher" value="5">5</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart12()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+    </table>
+
+
+<button onclick="topFunction()" type="button" id="myBtn" title="Back to top"><span class="glyphicon glyphicon-chevron-up"></span></button>
+{% endblock %}

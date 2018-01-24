@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<style>
+tr{
+    font-size:17px;
+}
+
+th.text-center {
+    border: 1px solid black;
+    font-size:18px;
+}
+tr.border_bottom td {
+    border-bottom:1pt solid black;
+    height:100px;
+}
+#rhcardparticulars{
+    text-align:left;
+    padding-left:30px;
+}
+
+.filterbank{
+    margin: 0px 100px 20px 400px;
+}
+.filtermonth{
+    margin: 0px 140px 20px 100px;
+}
+</style>
+
+    <h1 style="text-align:center;"> Redemption History</h1>
+
+    <br>
+    <br>
+    <div class="filterbank" style="font-size:17px; display:inline-block;">
+        <label for="rhbank">Bank:</label>
+        <select id="rhsort" onchange="location = this.value;" >
+            <option name="ALL" value="/allredemption" >All</option>
+            <option name="UOB" value="/alluobredemption" selected="selected">UOB</option>
+            <option name="OCBC" value="/allocbcredemption">OCBC</option>
+            <option name="DBS" value="/alldbsredemption">DBS</option>
+        </select>
+
+    </div>
+    <div class="filtermonth" style="font-size:17px;display:inline-block;">
+           <label for="rhmonth">Month:</label>
+        <select id="rhmonth" onchange="location = this.value;">
+            <option name="All" value="/alluobredemption" selected="selected">All</option>
+            <option name="November" value="/uobnovredemption" >November</option>
+            <option name="December" value="/uobdecredemption">December</option>
+        </select>
+    </div>
+    <table class="decuobhistory" style="border:1px solid black; width:95%;text-align:center; margin:auto;">
+
+        <tr class="border_bottom"  style="height:100px;">
+             <th class="text-center" class="rhdate">Date</th>
+             <th class="text-center" class="rhcardparticulars">Card Particulars</th>
+             <th class="text-center" class="rhitem">Reward Item</th>
+             <th class="text-center" class="rhqty">Quantity</th>
+             <th class="text-center" class="rhpointsredeemed">Points Redeemed</th>
+             <th class="text-center" class="rhdeliverystatus">Delivery status</th>
+        </tr>
+        <tr class="border_bottom">
+             <td id="rhdate"><p>7/11/2017</p></td>
+             <td id="rhcardparticulars" >
+                <p>UOB Platinum Card</p>
+                <p>Card Number:9888-6121-0824-1112</p>
+                </td>
+             <td id="rhname">Nike $50 Voucher</td>
+             <td id="rhqty">2</td>
+             <td id="rhpointsredeemed">UNI$1625</td>
+             <td id="rhdeliverystatus" style="color:darkgreen; font-weight:bold;">Delivered</td>
+        </tr>
+        <tr class="border_bottom">
+             <td id="rhdate"><p>3/12/2017</p></td>
+             <td id="rhcardparticulars" >
+                <p>UOB Platinum Card</p>
+                <p>Card Number:9888-6121-0824-1112</p>
+                </td>
+             <td id="rhname">Bakerzin Voucher $10 Voucher</td>
+             <td id="rhqty">3</td>
+             <td id="rhpointsredeemed">UNI$2100</td>
+             <td id="rhdeliverystatus" style="color:darkgreen; font-weight:bold;">Delivered</td>
+        </tr>
+        <tr class="border_bottom">
+             <td id="rhdate">12/12/2017</td>
+             <td id="rhcardparticulars">
+                <p>UOB Platinum Card</p>
+                <p>Card Number:9888-6121-0824-1112</p>
+             </td>
+             <td id="rhitem">Courts $20 Voucher</td>
+             <td id="rhqty">3</td>
+             <td id="rhpointsredeemed">UNI$2175</td>
+             <td id="rhdeliverystatus" style="color:darkred; font-weight:bold;">Pending</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <br>
+    <br>
+
+{% endblock %}

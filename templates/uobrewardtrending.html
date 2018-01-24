@@ -1,0 +1,319 @@
+{% extends 'layout.html' %}
+{% block body %}
+<style>
+
+    .container{
+        width:90%;
+        margin-top:-50px;
+    }
+    li.nav-item {
+        margin-top: 68px;
+    }
+    ul.nav.nav-tabs{
+        font-size:18px;
+        border-bottom: 2px solid black;
+        margin-top: -20px;
+
+    }
+    .nav-tabs>li>a{
+        margin-right:10px;
+        border:1px solid black;
+        border-bottom:transparent;
+        color: black
+    }
+    a.nav-link.active{
+        background-color:whitesmoke;
+    }
+    .pointsystem{
+        border-style: solid;
+        border-bottom-color: transparent;
+        font-size:15px;
+        font-weight:bold;
+        padding:3px 10px 3px 20px;
+        text-align:center;
+        margin-top:60px;
+        display: inline-block;
+    }
+    li.uobbank {
+        margin-top: 13px;
+    }
+    h3{
+        font-weight:bold;
+        font-size:27px;
+        margin: 65px 45px 0px 45px;
+    }
+    span.glyphicon.glyphicon-shopping-cart{
+        color:black;
+        font-size:25px;
+        margin: -20px 25px 0px 30px;
+
+    }
+    .toptable{
+        margin:-10px 0px 0px 50px;
+    }
+    .search{
+        position: relative;
+        margin:10px 30px 0px 115px;
+    }
+    input[type=search]::-webkit-search-cancel-button {
+        -webkit-appearance: searchfield-cancel-button;
+    }
+    #search{
+        width: 400px;
+        font-size: 16px;
+        padding: 10px 20px 12px 40px;
+        border: 1px solid black;
+        height: 40px;
+    }
+    .sort {
+        font-size: 18px;
+        margin: 15px 120px 0px 120px;
+    }
+
+    i.glyphicon.glyphicon-search {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+    th.text-center {
+        border: 1px solid black;
+        font-size:18px;
+    }
+
+    .info{
+        font-size:17px;
+    }
+    #name{
+    font-weight:bold;
+    }
+
+    tr.border_bottom td {
+      border-bottom:1pt solid black;
+    }
+    .addtocart{
+    background-color: white;
+    color: black;
+    border:1px solid black;
+    padding: 5px 3px;
+    margin-top:5px;
+    text-align: center;
+    width:130px;
+    font-size: 15px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+    .addtocart:hover {
+        background-color: #e7e7e7;
+    }
+
+</style>
+
+<script>
+
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("trend");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+</script>
+
+<div class="container" >
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active"  href="/uobrewardtrending">Trending</a></li>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" href="/uobrewardall">All</a></li>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" href="/uobrewardretail">Retail</a></li>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" href="/uobrewarddining">Dining</a></li>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link " href="/uobrewardleisure">Leisure</a></li>
+      </li>
+      <li role="presentation" class="uobbank">
+       <h3>UOB Catalogue</h3>
+      </li>
+      <li>
+          <div  class="pointsystem" >
+                <div style="display:inline-block">
+                    <p style="margin-bottom:0px;font-size:17px;">
+                        Current Point : UNI$5000
+                    </p>
+                    <p style="padding-right:47px; margin-bottom:0px;  font-size:17px; ">
+                        Redeemed Point : 0
+                    </p>
+                </div>
+                <div style="display:inline-block">
+                    <p style="text-align:center; margin:0px">
+                        <a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </p>
+                </div>
+          </div>
+      </li>
+
+    </ul>
+
+
+    <br>
+
+    <table class="toptable">
+        <tr>
+            <td style="font-size:17px;">
+                <div class="search">
+
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input type="search" id="search" onkeyup="myFunction()"  placeholder="Search Reward names">
+                </div>
+            </td>
+
+             <td style="text-align:center">
+                <div class="sort">
+                    <label for="sort">Sort:</label>
+                                            <select id="Sort" onchange="location = this.value;">
+                                                <option name="Reward Name" value="/uobrewardtrending" selected="selected">Reward Name</option>
+                                                <option name="Points" value="/uobrewardtrendingpt" >Points</option>
+                                            </select>
+
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+
+</div>
+    <br>
+    <br>
+    <table id="trend" class="trend" style="border:1px solid black; width:90%;text-align:center; margin:auto;">
+
+        <tr>
+            <col width="20%">
+            <col width="20%">
+            <col width="22.5%">
+            <col width="15%">
+
+
+            <th class="text-center" colspan="2">Item</th>
+            <th class="text-center">Type</th>
+            <th class="text-center">Points (UNI$)</th>
+            <th class="text-center">Selection</th>
+        </tr>
+
+<!--Nike Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/nike.png" width="120" height="90"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Nike $50 Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$50 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1625 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Nike $50 Voucher">
+                                <option name="$50 Voucher" value="0" selected="selected">0</option>
+                                <option name="$50 Voucher" value="1">1</option>
+                                <option name="$50 Voucher" value="2">2</option>
+                                <option name="$50 Voucher" value="3">3</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart10()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+<!--Shaw Theatre Tickets-->
+        <tr class="border_bottom" style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/shawtheatres.png" width="140" height="100"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Shaw Theatre Tickets</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">2 Movie Ticket</p>
+            </td>
+            <td >
+                <p class="info" id="points">1420 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Shaw Theatre Tickets">
+                                <option name="2 Movie Ticket" value="0" selected="selected">0</option>
+                                <option name="2 Movie Ticket" value="1">1</option>
+                                <option name="2 Movie Ticket" value="2">2</option>
+                                <option name="2 Movie Ticket" value="3">3</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart26()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+<!--Swensen's Voucher-->
+        <tr class="border_bottom"  style="height:120px;">
+            <td class="image">
+                <p><img src="static/images/swensens.png" width="160" height="50"></p>
+            </td>
+            <td class="info" id="name">
+                <p>Swensen's Voucher</p>
+            </td>
+
+            <td >
+                <p class="info" id="type">$20 Voucher</p>
+            </td>
+            <td >
+                <p class="info" id="points">1000 points</p>
+            </td>
+            <td>
+                <p class="uobselection">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Swensen's $20 Gift Voucher">
+                                <option name="$20 Voucher" value="0" selected="selected">0</option>
+                                <option name="$20 Voucher" value="1">1</option>
+                                <option name="$20 Voucher" value="2">2</option>
+                                <option name="$20 Voucher" value="3">3</option>
+                                <option name="$20 Voucher" value="4">4</option>
+                                <option name="$20 Voucher" value="5">5</option>
+                            </select>
+                </p>
+                <button class="addtocart" onclick="addtocart21()"><span class="glyphicon glyphicon-shopping-cart" style="margin:0px 6px; font-size:15px; "></span> Add to Cart</button>
+            </td>
+        </tr>
+
+    </table>
+
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

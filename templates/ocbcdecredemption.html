@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<style>
+tr{
+    font-size:17px;
+}
+
+th.text-center {
+    border: 1px solid black;
+    font-size:18px;
+}
+tr.border_bottom td {
+    border-bottom:1pt solid black;
+    height:100px;
+}
+#rhcardparticulars{
+    text-align:left;
+    padding-left:30px;
+}
+.filterbank{
+    margin: 0px 100px 20px 400px;
+}
+.filtermonth{
+    margin: 0px 140px 20px 100px;
+}
+</style>
+
+    <h1 style="text-align:center;"> Redemption History</h1>
+
+    <br>
+    <br>
+    <div class="filterbank" style="font-size:17px; display:inline-block;">
+        <label for="rhbank">Bank:</label>
+        <select id="rhsort"onchange="location = this.value;">
+            <option name="ALL" value="/alldecredemption" >All</option>
+            <option name="UOB" value="/uobdecredemption">UOB</option>
+            <option name="OCBC" value="/ocbcdecredemption" selected="selected">OCBC</option>
+            <option name="DBS" value="/dbsdecredemption">DBS</option>
+        </select>
+
+    </div>
+    <div class="filtermonth" style="font-size:17px;display:inline-block;">
+           <label for="rhmonth">Month:</label>
+        <select id="rhmonth" onchange="location = this.value;">
+            <option name="All" value="/allocbcredemption" >All</option>
+            <option name="November" value="/ocbcnovredemption" >November</option>
+            <option name="December"  value="/ocbcdecredemption"selected="selected">December</option>
+        </select>
+    </div>
+    <table class="decuobhistory" style="border:1px solid black; width:95%;text-align:center; margin:auto;">
+
+        <tr class="border_bottom"  style="height:100px;">
+             <th class="text-center" class="rhdate">Date</th>
+             <th class="text-center" class="rhcardparticulars">Card Particulars</th>
+             <th class="text-center" class="rhitem">Reward Item</th>
+             <th class="text-center" class="rhqty">Quantity</th>
+             <th class="text-center" class="rhpointsredeemed">Points Redeemed</th>
+             <th class="text-center" class="rhdeliverystatus">Delivery status</th>
+        </tr>
+
+        <tr class="border_bottom">
+             <td id="rhdate"><p>3/12/2017</p></td>
+             <td id="rhcardparticulars" >
+                <p>OCBC Platinum Mastercard</p>
+                <p>Card Number:2342-3981-7652-0918</p>
+                </td>
+             <td id="rhname">NTUC Fairprice $20 Voucher</td>
+             <td id="rhqty">3</td>
+             <td id="rhpointsredeemed">10500 OCBC$</td>
+             <td id="rhdeliverystatus" style="color:darkgreen; font-weight:bold;">Delivered</td>
+        </tr>
+    </table>
+{% endblock %}

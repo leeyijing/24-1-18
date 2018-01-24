@@ -1,0 +1,306 @@
+{% extends 'layout.html' %}
+{% block body %}
+<style>
+    h2{
+        margin-top:-20px;
+        text-align:center;
+    }
+    div.filter{
+        text-align:center;
+    }
+    .search{
+        position: relative;
+    }
+
+    i.glyphicon.glyphicon-search {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+
+    button {
+        border:1px solid black;
+    }
+
+    button.uobnav{
+        padding: 10px 20px;
+        border-radius: 25px;
+        background-color:white;
+        margin-left:8%;
+    }
+    .pointsystem{
+
+        border:1px solid black;
+        font-size:15px;
+        padding:5px 10px;
+    }
+
+    p.rewardsimg{
+        height:175px;
+        width:250px;
+
+    }
+
+    p.info{
+        text-align: center;
+    }
+    p#name{
+        font-weight:bold;
+        font-size: 20px;
+    }
+    p#points{
+        font-weight:bold;
+        font-size:15px;
+        margin-left:8px;
+    }
+    p#stocks{
+        font-weight:bold;
+        font-size: 13px;
+
+    }
+    ol li{
+      list-style-type: none;
+      float:left;
+      margin:0px 20px;
+      border: 1px solid black;
+      padding-bottom:10px;
+    }
+
+    li.retailrewardsitem{
+        margin-bottom:25px;
+    }
+
+</style>
+    <br>
+
+    <h2>Uob Rewards Catalogue</h2>
+
+    <br>
+
+
+ <!--    <table width=100%>
+        <tr>
+            <td width="80%" style="font-size:17px;">
+                <ul class="nav nav-pills">
+                    <li class="uobnav" id="uobTrending"><a data-toggle="pill" href="#uobTrending">Trending</a></li>
+                    <li class="uobnav" id="uobAll"><a data-toggle="pill" href="#uobAll">All</a></li>
+                    <li class="uobnav" id="uobRetail" ><a data-toggle="pill" href="#uobRetail">Retail</a></li>
+                    <li class="uobnav" id="uobDining" ><a data-toggle="pill" href="#uobDining">Dining</a></li>
+                    <li class="uobnav" id="uobLeisure" ><a data-toggle="pill" href="#uobLeisure">Leisure</a></li>
+                    <li class="uobnav" id="uobTravel" ><a data-toggle="pill" href="#uobTravel">Travel</a></li>
+                </ul>
+             </td>
+        </tr>
+-->
+
+   <table width=90%>
+        <tr>
+            <td width="80%" style="font-size:17px;">
+                <button class="uobnav" id="uobAll" href="/uoball" >All</button>
+                <button class="uobnav" id="uobTrending" href="/uobtrending" >Trending</button>
+                <button class="uobnav" id="uobRetail" href="/uobrewardretail">Retail</button>
+                <button class="uobnav" id="uobDining" href="/uobdining">Dining</button>
+                <button class="uobnav" id="uobLeisure" selected="selected" href="/uobleisure">Leisure</button>
+    <!--        <button class="uobnav" id="uobTravel" onclick=listing() href="/uobtravel">Travel</button>-->
+            </td>
+
+            <td width="20%" class="pointsystem" style="text-align:center">
+                <p style="margin-bottom:5px">
+                    Current Point : 5000
+                </p>
+                <p style="padding-right:47px;">
+                    Redeemed Point : 0
+                </p>
+                <p style="text-align:center; margin-bottom:5px">
+                    <button style="border-radius: 12px; background-color:white" href="/cart">View Cart <span class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                </p>
+            </td>
+
+        </tr>
+   </table>
+
+    <div class="search">
+
+        <i class="glyphicon glyphicon-search"></i>
+        <input type="text" id="search" onkeyup="filter()" placeholder="Search Reward" title="Search Reward">
+    </div>
+
+    <div>
+        <label for="sort">Sort:</label>
+                                <select id="Sort">
+                                    <option name="Reward Name" value="0" selected="selected">Reward Name</option>
+                                    <option name="Points" value="1">Points</option>
+                                </select>
+
+    </div>
+
+    <br>
+
+    <p class="uobretail">
+        <ol class="allretailrewardsitem>">
+            <li class="retailrewardsitem"> <!--Courts $20 voucher-->
+                <p class="rewardsimg">
+                    <img src="static/images/courts.jpg"  class="img-responsive" >
+                </p>
+
+                <div class="rewardspoints">
+                    <p class="info" id="name">Courts $20 Voucher</p>
+                    <p class="info" id="points">Points: 2000</p>
+                    <p class="info" id="stocks">Stocks:<span style="color:green"> 150</span></p>
+                    <p class="info">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Courts $20 Voucher">
+                                <option name="Courts $20 Voucher" value="0" selected="selected">0</option>
+                                <option name="Courts $20 Voucher" value="1">1</option>
+                                <option name="Courts $20 Voucher" value="2">2</option>
+                                <option name="Courts $20 Voucher" value="3">3</option>
+                                <option name="Courts $20 Voucher" value="4">4</option>
+                                <option name="Courts $20 Voucher" value="5">5</option>
+                            </select>
+                    </p>
+
+                    <button type="button" class="btn btn-default" onclick="addtocart()" style="font-size:12px; width:125px; font-weight:bold; margin-left:50px;" >Add to Cart</button>
+
+                </div>
+            </li>
+
+            <li class="retailrewardsitem"> <!--Courts $50 voucher-->
+                <p class="rewardsimg">
+                    <img src="static/images/courts.jpg" height="200px" width="250px" >
+                </p>
+
+                <div class="rewardspoints">
+                    <p class="info" id="name">Courts $50 Voucher</p>
+                    <p class="info" id="points">Points: 5000</p>
+                    <p class="info" id="stocks">Stocks:<span style="color:green"> 246</span></p>
+                    <p class="info">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Courts $20 Voucher">
+                                <option name="Courts $50 Voucher" value="0" selected="selected">0</option>
+                                <option name="Courts $50 Voucher" value="1">1</option>
+                                <option name="Courts $50 Voucher" value="2">2</option>
+                                <option name="Courts $50 Voucher" value="3">3</option>
+                                <option name="Courts $50 Voucher" value="4">4</option>
+                                <option name="Courts $50 Voucher" value="5">5</option>
+                            </select>
+                    </p>
+
+                    <button type="button" class="btn btn-default" onclick="addtocart()" style="font-size:12px; width:125px; font-weight:bold; margin-left:50px;" >Add to Cart</button>
+
+                </div>
+            </li>
+
+            <li class="retailrewardsitem"> <!--Asiamalls $20 voucher-->
+                <p class="rewardsimg">
+                    <img src="static/images/asiamall.png" class="img-responsive" >
+                </p>
+
+                <div class="rewardspoints">
+                    <p class="info" id="name">Asiamalls $20 voucher</p>
+                    <p class="info" id="points">Points: 2220</p>
+                    <p class="info" id="stocks">Stocks:<span style="color:green"> 187</span></p>
+                    <p class="info">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Asiamalls $20 voucher">
+                                <option name="Asiamalls $20 voucher" value="0" selected="selected">0</option>
+                                <option name="Asiamalls $20 voucher" value="1">1</option>
+                                <option name="Asiamalls $20 voucher" value="2">2</option>
+                                <option name="Asiamalls $20 voucher" value="3">3</option>
+                                <option name="Asiamalls $20 voucher" value="4">4</option>
+                                <option name="Asiamalls $20 voucher" value="5">5</option>
+                            </select>
+                    </p>
+
+                    <button type="button" class="btn btn-default" onclick="addtocart()" style="font-size:12px; width:125px; font-weight:bold; margin-left:50px;" >Add to Cart</button>
+
+                </div>
+            </li>
+
+            <li class="retailrewardsitem"> <!--Takashiya $20 Voucher-->
+                <p class="rewardsimg">
+                    <img src="static/images/taka.jpg" class="img-responsive" >
+                </p>
+
+                <div class="rewardspoints">
+                    <p class="info" id="name">Takashimaya $20 Voucher</p>
+                    <p class="info" id="points">Points: 5550</p>
+                    <p class="info" id="stocks">Stocks:<span style="color:green"> 102</span></p>
+                    <p class="info">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Takashimaya $20 Voucher">
+                                <option name="Takashimaya $20 Voucher" value="0" selected="selected">0</option>
+                                <option name="Takashimaya $20 Voucher" value="1">1</option>
+                                <option name="Takashimaya $20 Voucher" value="2">2</option>
+                                <option name="Takashimaya $20 Voucher" value="3">3</option>
+                                <option name="Takashimaya $20 Voucher" value="4">4</option>
+                                <option name="Takashimaya $20 Voucher" value="5">5</option>
+                            </select>
+                    </p>
+
+                    <button type="button" class="btn btn-default" onclick="addtocart()" style="font-size:12px; width:125px; font-weight:bold; margin-left:50px;" >Add to Cart</button>
+
+                </div>
+            </li>
+
+            <li class="retailrewardsitem"> <!--Giant $30 voucher-->
+                <P class="rewardsimg">
+                    <img src="static/images/giant.jpg" class="img-responsive" >
+                </P>
+
+                <div class="rewardspoints">
+                    <p class="info" id="name">Giant $30 voucher</p>
+                    <p class="info" id="points">Points: 2000</p>
+                    <p class="info" id="stocks">Stocks:<span style="color:green"> 236</span></p>
+                    <p class="info">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Giant $30 voucher">
+                                <option name="Giant $30 voucher" value="0" selected="selected">0</option>
+                                <option name="Giant $30 voucher" value="1">1</option>
+                                <option name="Giant $30 voucher" value="2">2</option>
+                                <option name="Giant $30 voucher" value="3">3</option>
+                                <option name="Giant $30 voucher" value="4">4</option>
+                                <option name="Giant $30 voucher" value="5">5</option>
+                            </select>
+                    </p>
+
+                    <button type="button" class="btn btn-default" onclick="addtocart()" style="font-size:12px; width:125px; font-weight:bold; margin-left:50px;" >Add to Cart</button>
+
+                </div>
+            </li>
+
+            <li class="retailrewardsitem"> <!--Asiamalls $20 voucher-->
+                <P class="rewardsimg">
+                    <img src="static/images/asiamall.png" class="img-responsive" >
+                </P>
+
+                <div class="rewardspoints">
+                    <p class="info" id="name">Asiamalls $20 voucher</p>
+                    <p class="info" id="points">Points: 2220</p>
+                    <p class="info" id="stocks">Stocks:<span style="color:green"> 187</span></p>
+                    <p class="info">
+                        <label for="quantity">Quantity:</label>
+				            <select id="Asiamalls $20 voucher">
+                                <option name="Asiamalls $20 voucher" value="0" selected="selected">0</option>
+                                <option name="Asiamalls $20 voucher" value="1">1</option>
+                                <option name="Asiamalls $20 voucher" value="2">2</option>
+                                <option name="Asiamalls $20 voucher" value="3">3</option>
+                                <option name="Asiamalls $20 voucher" value="4">4</option>
+                                <option name="Asiamalls $20 voucher" value="5">5</option>
+                            </select>
+                    </p>
+
+                    <button type="button" class="btn btn-default" onclick="addtocart()" style="font-size:12px; width:125px; font-weight:bold; margin-left:50px;" >Add to Cart</button>
+
+                </div>
+            </li>
+
+        </ol>
+    </div>
+
+
+
+
+
+{% endblock %}
